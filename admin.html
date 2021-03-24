@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+
+    <title>RollingGames</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-5">
+            <div class="container">
+                <a class="navbar-brand" href="#">RollingGames</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Registro</a>
+                        </li>
+                        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#ModalLogin">
+                            Iniciar sesion
+                          </button>
+                        <li class="nav-item " id="Admin">
+                            <a class="nav-link" href="admin.html">Admin</a>
+                        </li>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="container text-light">
+        <section class="my-4">
+            <h2 class="text-center">Pagina de Administrador</h2>
+            <hr>
+        </section>
+        <section>
+            <div class="d-flex my-5">
+                <h3>Tabla de productos</h3>
+                <button class="btn btn-outline-light ms-auto" id="btnAgregar">
+            Agregar
+          </button>
+            </div>
+            <div class="table-responsive">
+                <table class="table text-light">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Número de serie</th>
+                            <th scope="col">Categoría</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Imagen</th>
+                            <th scope="col">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <td scope="col">#678</td>
+                        <td scope="col">Counter-Strike</td>
+                        <td scope="col">150</td>
+                        <td scope="col">FPS</td>
+                        <td scope="col">Juego de disparos en primera persona</td>
+                        <td scope="col">Imagen</td>
+                        <td scope="col">
+                            <button class="btn btn-warning" onclick="prepararFunkopop(this)">Editar</button>
+                            <button class="btn btn-danger" onclick="eliminarFunkopop(this)">Borrar</button>
+                            <i class="fas fa-star text-warning"></i>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <!--Modal Login-->
+    <div class="modal fade" id="ModalLogin" tabindex="-1" aria-labelledby="ModalLoginLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLoginLabel">Inicio de sesion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group mb-3">
+                            <label for="exampleInputEmail1">Email</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email@gmail.com">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="exampleInputPassword1">Contraseña</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Contraseña">
+                        </div>
+                        <div class="mb-3">
+                            <a href="" class="small">¿No tienes cuenta? Registrate !</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Iniciar sesion</button>
+                    <button type="button" class="btn btn-primary">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Administrador-->
+    <div class="modal fade" id="modalAdmin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formGames" onsubmit="guardarProducto(event)">
+                        <div class="mb-3">
+                            <label class="form-label">Codigo</label>
+                            <input type="text" class="form-control" id="codigo" placeholder="Ingrese un codigo" onblur="validarCodigo(this)" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Counter Strike" onblur="validarNombre(this)" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Numero de serie</label>
+                            <input type="text" class="form-control" id="numSerie" placeholder="678" onblur="validarNum(this)" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Categoria</label>
+                            <input type="text" class="form-control" id="categoria" placeholder="Valve" onblur="validarCategoria(this)" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Descripcion</label>
+                            <textarea type="text" class="form-control" id="descripcion" placeholder="Informacion del producto" onblur="validarConsulta(this)"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Imagen</label>
+                            <input type="text" class="form-control" id="imagen" placeholder="Agregar una imagen" />
+                        </div>
+                        <button class="btn btn-primary" type="submit">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-dark py-5">
+        <section class="container text-light">
+            <div class="row">
+                <div class="col-sm-12 col-md-5">
+                    <h5>RollingGames</h5>
+                </div>
+                <div class="col-sm-12 col-md-5">
+                    <h6>Todos los derechos reservado</h6>
+                </div>
+                <div class="col-sm-12 col-md-2">
+                    <a href="" class="text-light">Contacto</a>
+                </div>
+            </div>
+        </section>
+    </footer>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+<script src="js/app.js"></script>
+</body>
+
+</html>
