@@ -7,20 +7,20 @@ let listaJuegos = [];
 leerDatos();
 
 window.agregarJuego = function(event) {
+    event.preventDefault();
     /*  if (validarGeneral()) {
           alert('son correctos')
       } else {
           event.preventDefault()
           alert('son incorrectos')
       } */
-    event.preventDefault();
     let codigo = document.getElementById("codigo").value;
     let nombre = document.getElementById("nombre").value;
     let categoria = document.getElementById("categoria").value;
     let consulta = document.getElementById("descripcion").value;
-    let publicado = document.getElementById("publicado").value;
+
     //creo el nuevo producto
-    let nuevoJuego = new Games(codigo, nombre, categoria, consulta, publicado);
+    let nuevoJuego = new Games(codigo, nombre, categoria, consulta);
     //agrego el producto
     listaJuegos.push(nuevoJuego);
     console.log(listaJuegos);
@@ -29,8 +29,12 @@ window.agregarJuego = function(event) {
     //limpio
     limpiarFormulario();
     //mensaje
-    alert("se agrego el producto");
-    //leerdatos
+    Swal.fire(
+            'Nuevo producto',
+            'Se agrego el nuevo producto',
+            'success'
+        )
+        //leerdatos
     leerDatos();
 };
 
@@ -68,8 +72,8 @@ function dibujarDatosEnTabla(_listaJuegos) {
 <td scope="col">${_listaJuegos[i].descripcion}</td>
 <td scope="col"><i class="fas fa-check"></i></td>
 <td scope="col">
-    <button class="btn btn-warning" onclick="prepararGames(this)">Editar</button>
-    <button class="btn btn-danger" onclick="eliminarGames(this)">Borrar</button>
+    <button class="btn btn-warning" onclick="prepararGames(this)" id="${_listaJuegos[i].codigo}">Editar</button>
+    <button class="btn btn-danger" onclick="eliminarGames(this)" id="${_listaJuegos[i].codigo}">Borrar</button>
     <i class="fas fa-star text-warning"></i>
 </td>
 </tr>`;
@@ -77,3 +81,58 @@ function dibujarDatosEnTabla(_listaJuegos) {
         tabla.innerHTML += filas
     }
 }
+
+window.eliminarGames = function(boton) {
+    console.log(boton.id)
+    Swal.fire({
+        title: '¿Estas seguro de eliminar el producto?',
+        text: "",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            //logica de eliminar
+            let filtrarProducto = listaJuegos.filter(function(producto) {
+                return producto.codigo != boton.id
+            });
+            console.log(filtrarProducto);
+            listaJuegos = filtrarProducto
+                //guardar en localstorage
+            localStorage.setItem('listaProductos', JSON.stringify(filtrarProducto));
+            //cargar los nuevos datos en la tabla
+            leerDatos()
+            Swal.fire(
+                'Eliminado!',
+                'Su producto fue eliminado',
+                'success'
+            )
+        }
+    })
+}
+
+
+window.prepararGames = function(boton) {
+    console.log(boton)
+        //buscar el producto seleccionado
+    let encontrarProducto = listaJuegos.find((producto) => { return producto.codigo === boton.id });
+
+    console.log(encontrarProducto);
+    //completar con datos los inputs del formulario
+    document.getElementById('codigo').value = encontrarProducto.codigo;
+    document.getElementById('nombre').value = encontrarProducto.nombre;
+    document.getElementById('categoria').value = encontrarProducto.categoria;
+    document.getElementById('descripcion').value = encontrarProducto.descripcion;
+    document.getElementById('publicado').value = encontrarProducto.publicado;
+    //mostrar ventana modal
+
+}
+
+
+/*window.cambiarTilde = function(cambiar) {
+    cambiarTilde = false
+
+}*/
