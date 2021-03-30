@@ -45,7 +45,7 @@
         <section>
             <div class="d-flex my-5">
                 <h3>Tabla de productos</h3>
-                <button class="btn btn-outline-light ms-auto" data-bs-toggle="modal" data-bs-target="#modalAdmin" id="btnAgregar">
+                <button class="btn btn-outline-light ms-auto" id="btnAgregar">
             Agregar
           </button>
             </div>
@@ -118,7 +118,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="formJuego" onsubmit="agregarJuego(event)">
+                    <form id="formJuego" onsubmit="guardarProducto(event)">
                         <div class="mb-3">
                             <label class="form-label">Codigo</label>
                             <input type="text" class="form-control" id="codigo" placeholder="Ingrese un codigo" onblur="validarCodigo(this)" />
@@ -137,7 +137,7 @@
                         </div>
                         <div class="mb-3">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" onclick="cambiarTilde(this)">
+                                <input class="form-check-input" type="checkbox">
                                 <label class="form-check-label" for="publicado">Publicado</label>
                             </div>
                         </div>

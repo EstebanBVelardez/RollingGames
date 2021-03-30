@@ -3,11 +3,23 @@ import { Games } from "./gamesClass.js";
 
 let listaJuegos = [];
 
+let modalProducto = new bootstrap.Modal(document.getElementById('modalAdmin'));
+let btnAgregar = document.getElementById('btnAgregar');
+
+btnAgregar.addEventListener('click', function() {
+    limpiarFormulario()
+    modalProducto.show()
+})
+
+//variable bandera
+
+let modificarProducto = false
+
 //llamar a la funcion leer datos
 leerDatos();
 
-window.agregarJuego = function(event) {
-    event.preventDefault();
+function agregarJuego() {
+
     /*  if (validarGeneral()) {
           alert('son correctos')
       } else {
@@ -34,12 +46,16 @@ window.agregarJuego = function(event) {
             'Se agrego el nuevo producto',
             'success'
         )
-        //leerdatos
+        //cerrar modal
+    modalProducto.hide();
+
+    //leerdatos
     leerDatos();
 };
 
 function limpiarFormulario() {
     document.getElementById("formJuego").reset();
+    modificarProducto = false
 }
 
 function leerDatos() {
@@ -96,7 +112,7 @@ window.eliminarGames = function(boton) {
     }).then((result) => {
         if (result.isConfirmed) {
             //logica de eliminar
-            let filtrarProducto = listaJuegos.filter(function(producto) {
+            let filtrarProducto = listaJuegos.filter((producto) => {
                 return producto.codigo != boton.id
             });
             console.log(filtrarProducto);
@@ -115,24 +131,60 @@ window.eliminarGames = function(boton) {
 }
 
 
-window.prepararGames = function(boton) {
-    console.log(boton)
-        //buscar el producto seleccionado
-    let encontrarProducto = listaJuegos.find((producto) => { return producto.codigo === boton.id });
 
-    console.log(encontrarProducto);
-    //completar con datos los inputs del formulario
-    document.getElementById('codigo').value = encontrarProducto.codigo;
-    document.getElementById('nombre').value = encontrarProducto.nombre;
-    document.getElementById('categoria').value = encontrarProducto.categoria;
-    document.getElementById('descripcion').value = encontrarProducto.descripcion;
-    document.getElementById('publicado').value = encontrarProducto.publicado;
-    //mostrar ventana modal
+
+window.prepararGames = function(boton) {
+
+    //buscar el funkopop seleccionado
+    let encontrarProducto = listaJuegos.find((producto => { return producto.codigo === boton.id }))
+
+    document.getElementById('codigo').value = encontrarProducto.codigo
+    document.getElementById('nombre').value = encontrarProducto.nombre
+    document.getElementById('categoria').value = encontrarProducto.categoria
+    document.getElementById('descripcion').value = encontrarProducto.descripcion
+    modificarProducto = true
+    modalProducto.show()
 
 }
 
+window.guardarProducto = function(event) {
+    event.preventDefault()
+        // if(true) es lo mismo que if(true===true)
+    if (modificarProducto === true) {
+        // modificar un funkopop existente
+        modificarProductoExistente()
+    } else {
+        agregarJuego();
+    }
+}
 
-/*window.cambiarTilde = function(cambiar) {
-    cambiarTilde = false
+function modificarProductoExistente() {
+    //tomar los valores modificados
+    //validar con el validar general
+    let codigo = document.getElementById('codigo').value
+    let nombre = document.getElementById('nombre').value
+    let categoria = document.getElementById('categoria').value
+    let descripcion = document.getElementById('descripcion').value
 
-}*/
+    //buscar el objeto y modificar el dato
+    for (let i in listaJuegos) {
+        if (listaJuegos[i].codigo === codigo) {
+            listaJuegos[i].nombre = nombre;
+            listaJuegos[i].categoria = categoria;
+            listaJuegos[i].descripcion = descripcion;
+
+
+        }
+    }
+    //actualizar el localStorage
+    localStorage.setItem('listaProductos', JSON.stringify(listaJuegos))
+    Swal.fire(
+            'Producto modificado',
+            'Se modifico el producto',
+            'success'
+        )
+        //dibujar los datos
+    leerDatos();
+    //cerrar ventana
+    modalProducto.hide()
+}
