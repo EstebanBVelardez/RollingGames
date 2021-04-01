@@ -30,9 +30,10 @@ function agregarJuego() {
     let nombre = document.getElementById("nombre").value;
     let categoria = document.getElementById("categoria").value;
     let consulta = document.getElementById("descripcion").value;
+    let imagen = document.getElementById("imagen").value;
 
     //creo el nuevo producto
-    let nuevoJuego = new Games(codigo, nombre, categoria, consulta);
+    let nuevoJuego = new Games(codigo, nombre, categoria, consulta, imagen);
     //agrego el producto
     listaJuegos.push(nuevoJuego);
     console.log(listaJuegos);
@@ -64,7 +65,7 @@ function leerDatos() {
         let _listaJuegos = JSON.parse(localStorage.getItem("listaProductos"));
         console.log(_listaJuegos);
 
-        //Preguntar si mi arreglo listaFunkopop tiene datoss
+        //Preguntar si mi arreglo  tiene datoss
         if (listaJuegos.length === 0) {
             listaJuegos = listaJuegos;
         }
@@ -87,10 +88,11 @@ function dibujarDatosEnTabla(_listaJuegos) {
 <td scope="col">${_listaJuegos[i].categoria}</td>
 <td scope="col">${_listaJuegos[i].descripcion}</td>
 <td scope="col"><i class="fas fa-check"></i></td>
+<td scope="col">${_listaJuegos[i].imagen}</td>
 <td scope="col">
     <button class="btn btn-warning" onclick="prepararGames(this)" id="${_listaJuegos[i].codigo}">Editar</button>
     <button class="btn btn-danger" onclick="eliminarGames(this)" id="${_listaJuegos[i].codigo}">Borrar</button>
-    <i class="fas fa-star text-warning"></i>
+    <button class="btn btn-sm" onclick="agregarDestacado"><i class="fas fa-star text-warning"></i></button>
 </td>
 </tr>`;
         //agrega la fila al padre
@@ -135,12 +137,13 @@ window.eliminarGames = function(boton) {
 
 window.prepararGames = function(boton) {
 
-    //buscar el funkopop seleccionado
+
     let encontrarProducto = listaJuegos.find((producto => { return producto.codigo === boton.id }))
 
     document.getElementById('codigo').value = encontrarProducto.codigo
     document.getElementById('nombre').value = encontrarProducto.nombre
     document.getElementById('categoria').value = encontrarProducto.categoria
+    document.getElementById('imagen').value = encontrarProducto.imagen
     document.getElementById('descripcion').value = encontrarProducto.descripcion
     modificarProducto = true
     modalProducto.show()
@@ -151,7 +154,7 @@ window.guardarProducto = function(event) {
     event.preventDefault()
         // if(true) es lo mismo que if(true===true)
     if (modificarProducto === true) {
-        // modificar un funkopop existente
+
         modificarProductoExistente()
     } else {
         agregarJuego();
@@ -165,6 +168,7 @@ function modificarProductoExistente() {
     let nombre = document.getElementById('nombre').value
     let categoria = document.getElementById('categoria').value
     let descripcion = document.getElementById('descripcion').value
+    let imagen = document.getElementById('imagen').value;
 
     //buscar el objeto y modificar el dato
     for (let i in listaJuegos) {
@@ -172,6 +176,7 @@ function modificarProductoExistente() {
             listaJuegos[i].nombre = nombre;
             listaJuegos[i].categoria = categoria;
             listaJuegos[i].descripcion = descripcion;
+            listaJuegos[i].imagen = imagen;
 
 
         }

@@ -15,7 +15,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-5">
             <div class="container">
-                <a class="navbar-brand" href="#">RollingGames</a>
+                <a class="navbar-brand" href="index.html">RollingGames</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -58,6 +58,7 @@
                             <th scope="col">Categoría</th>
                             <th scope="col">Descripción</th>
                             <th scope="col">Publicado</th>
+                            <th scope="col">imagen</th>
                             <th scope="col">Opciones</th>
                         </tr>
                     </thead>
@@ -68,10 +69,11 @@
                             <td scope="col">FPS</td>
                             <td scope="col">Juego de disparos en primera persona</td>
                             <td scope="col"><i class="fas fa-check"></i></td>
+                            <td scope="col">imagen</td>
                             <td scope="col">
                                 <button class="btn btn-warning" onclick="prepararGames(this)">Editar</button>
                                 <button class="btn btn-danger" onclick="eliminarGames(this)">Borrar</button>
-                                <i class="fas fa-star text-warning"></i>
+                                <button class="btn btn-sm"><i class="fas fa-star text-warning"></i></button>
                             </td>
                         </tr>
                     </tbody>
@@ -136,9 +138,15 @@
                             <textarea type="text" class="form-control" id="descripcion" placeholder="Informacion del producto" onblur="validarConsulta(this)"></textarea>
                         </div>
                         <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox">
-                                <label class="form-check-label" for="publicado">Publicado</label>
+                            <label class="form-label">Imagen</label>
+                            <input type="text" class="form-control" id="imagen" placeholder="Agregar una imagen" />
+                        </div>
+                        <div class="my-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                  Publicado
+                                </label>
                             </div>
                         </div>
                         <button class="btn btn-primary" type="submit">Guardar</button>
