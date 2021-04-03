@@ -54,6 +54,7 @@
      }
  }*/
 
+ //Validacion del registro
 
  function usuario(usuario) {
      console.log('desde el usuario')
@@ -141,4 +142,75 @@
          to_name: "Administrador",
          message: `Email: ${document.getElementById('email').value} - Password: ${document.getElementById('password').value}`
      });
+ }
+
+ //Validacion de contacto
+
+ function nombreContacto(usuarioContacto) {
+     console.log('desde el usuario')
+     if (usuarioContacto.value.trim() === "") {
+         usuarioContacto.className = "form-control is-invalid"
+         return false;
+     } else {
+         usuarioContacto.className = "form-control is-valid"
+         return true;
+     }
+ }
+
+ function mailContacto(mailContacto) {
+     let expresion = /\w+@\w+\.[a-z]{2,}$/
+     if (mailContacto.value.trim() != '' && expresion.test(emailContacto.value)) {
+         mailContacto.className = 'form-control is-valid';
+         return true;
+     } else {
+         mailContacto.className = 'form-control is-invalid';
+         return false;
+     }
+ }
+
+ function consultaContacto(consultaContacto) {
+     if (consultaContacto.value.trim() != '' && consultaContacto.value.length >= 20) {
+         consultaContacto.className = 'form-control is-valid';
+         return true;
+     } else {
+         consultaContacto.className = 'form-control is-invalid';
+         return false;
+     }
+ }
+
+ function contadorCaracteres(caracter) {
+     document.getElementById('caracteres').innerHTML = caracter.value.length + ' /20'
+ }
+
+ function validarContacto(event) {
+     event.preventDefault()
+     if (nombreContacto(document.getElementById("nombreYapellido")) == true &&
+         mailContacto(document.getElementById('emailContacto')) &&
+         consultaContacto(document.getElementById('consulta'))
+     ) {
+         enviarConsulta()
+         Swal.fire(
+             'Su consulta fue enviada',
+             'Les responderemos a la brevedad',
+             'success'
+         )
+         limpiarFormulario()
+     } else {
+         alert('datos erroneos')
+     }
+ }
+
+
+
+ function enviarConsulta() {
+     emailjs.send("service_jotaxkc", "template_vd6j8p9", {
+         from_name: document.getElementById('nombreYapellido').value,
+         to_name: "Administrador",
+         message: `Email: ${document.getElementById('emailContacto').value} - Consulta: ${document.getElementById('consulta').value}`,
+     });
+
+ }
+
+ function limpiarFormulario() {
+     document.getElementById('formContacto').reset()
  }
