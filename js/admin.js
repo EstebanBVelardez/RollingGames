@@ -19,40 +19,42 @@ let modificarProducto = false
 leerDatos();
 
 function agregarJuego() {
+    if (validarCodigo(document.getElementById("codigo")) == true &&
+        validarNombre(document.getElementById("nombre")) &&
+        validarCategoria(document.getElementById("categoria")) &&
+        validarConsulta(document.getElementById("descripcion"))
+    ) {
+        let codigo = document.getElementById("codigo").value;
+        let nombre = document.getElementById("nombre").value;
+        let categoria = document.getElementById("categoria").value;
+        let consulta = document.getElementById("descripcion").value;
+        let imagen = document.getElementById("imagen").value;
 
-    /*  if (validarGeneral()) {
-          alert('son correctos')
-      } else {
-          event.preventDefault()
-          alert('son incorrectos')
-      } */
-    let codigo = document.getElementById("codigo").value;
-    let nombre = document.getElementById("nombre").value;
-    let categoria = document.getElementById("categoria").value;
-    let consulta = document.getElementById("descripcion").value;
-    let imagen = document.getElementById("imagen").value;
+        //creo el nuevo producto
+        let nuevoJuego = new Games(codigo, nombre, categoria, consulta, imagen);
+        //agrego el producto
+        listaJuegos.push(nuevoJuego);
+        console.log(listaJuegos);
+        //guardo en localStorage
+        localStorage.setItem("listaProductos", JSON.stringify(listaJuegos));
+        //limpio
+        limpiarFormulario();
+        //mensaje
+        Swal.fire(
+                'Nuevo producto',
+                'Se agrego el nuevo producto',
+                'success'
+            )
+            //cerrar modal
+        modalProducto.hide();
 
-    //creo el nuevo producto
-    let nuevoJuego = new Games(codigo, nombre, categoria, consulta, imagen);
-    //agrego el producto
-    listaJuegos.push(nuevoJuego);
-    console.log(listaJuegos);
-    //guardo en localStorage
-    localStorage.setItem("listaProductos", JSON.stringify(listaJuegos));
-    //limpio
-    limpiarFormulario();
-    //mensaje
-    Swal.fire(
-            'Nuevo producto',
-            'Se agrego el nuevo producto',
-            'success'
-        )
-        //cerrar modal
-    modalProducto.hide();
+        //leerdatos
+        leerDatos();
+    } else {
+        alert('los datos ingresados son incorrectos')
+    }
+}
 
-    //leerdatos
-    leerDatos();
-};
 
 function limpiarFormulario() {
     document.getElementById("formJuego").reset();
@@ -192,4 +194,51 @@ function modificarProductoExistente() {
     leerDatos();
     //cerrar ventana
     modalProducto.hide()
+}
+
+
+//validacion
+
+window.validarCodigo = function(codigo) {
+    console.log("desde el blur");
+    if (codigo.value.trim() === "") {
+        codigo.className = "form-control is-invalid";
+        return false;
+    } else {
+        codigo.className = "form-control is-valid";
+        return true;
+    }
+}
+
+window.validarNombre = function(nombre) {
+    console.log("desde el blur");
+    if (nombre.value.trim() === "") {
+        nombre.className = "form-control is-invalid";
+        return false;
+    } else {
+        nombre.className = "form-control is-valid";
+        return true;
+    }
+}
+
+window.validarCategoria = function(categoria) {
+    console.log("desde el blur");
+    if (categoria.value.trim() === "") {
+        categoria.className = "form-control is-invalid";
+        return false;
+    } else {
+        categoria.className = "form-control is-valid";
+        return true;
+    }
+}
+
+window.validarConsulta = function(consulta) {
+    console.log("desde el blur");
+    if (consulta.value.trim() === "") {
+        consulta.className = "form-control is-invalid";
+        return false;
+    } else {
+        consulta.className = "form-control is-valid";
+        return true;
+    }
 }
