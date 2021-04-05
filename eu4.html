@@ -38,47 +38,38 @@
         </nav>
     </header>
     <main class="container text-light">
-        <section class="my-4">
-            <h2 class="text-center">Pagina de Administrador</h2>
-            <hr>
-        </section>
-        <section>
-            <div class="d-flex my-5">
-                <h3>Tabla de productos</h3>
-                <button class="btn btn-outline-light ms-auto" id="btnAgregar">
-            Agregar
-          </button>
-            </div>
-            <div class="table-responsive">
-                <table class="table text-light">
-                    <thead>
-                        <tr>
-                            <th scope="col">#Codigo</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Categoría</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Publicado</th>
-                            <th scope="col">imagen</th>
-                            <th scope="col">Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaGames">
-                        <tr>
-                            <td scope="col">#678</td>
-                            <td scope="col">Counter-Strike</td>
-                            <td scope="col">FPS</td>
-                            <td scope="col">Juego de disparos en primera persona</td>
-                            <td scope="col"><i class="fas fa-check"></i></td>
-                            <td scope="col">imagen</td>
-                            <td scope="col">
-                                <button class="btn btn-warning" onclick="prepararGames(this)">Editar</button>
-                                <button class="btn btn-danger" onclick="eliminarGames(this)">Borrar</button>
-                                <button class="btn btn-sm"><i class="fas fa-star text-warning"></i></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <section class="my-3">
+            <article class="row">
+                <div class="col-sm-12 col-md-8 mt-5">
+                    <iframe width="560" height="315" class="w-100" src="https://www.youtube.com/embed/ONWTGEZKzn8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="col-sm-12 col-md-4 mt-5">
+                    <img src="img/CardPrincipal/europa-universalis-iv-large.jpg" alt="imagen eu4" class="w-100">
+                    <p>
+                        Four centuries of detailed history come alive in Paradox’s classic grand strategy game. Lead any nation from Renaissance to Revolution in a complex simulation of the early modern world. Master the art of war, diplomacy and trade to shape and change your
+                        nation’s history! </p>
+                    <a href="error404.html" class="btn btn-primary my-3 ml-3">Comprar</a>
+                </div>
+                <hr>
+            </article>
+            <article class="mt-3">
+                <h3>Requisitos del sistema</h3>
+                <div class="mt-4">Windows® 7 64 bit</div>
+                <div class="mt-1">
+                    Processor:Intel® Core 2 or equivalent
+                </div>
+                <div class="mt-1">
+                    Graphics:NVIDIA® GeForce 8800 or ATI Radeon® X1900, 512mb video memory required
+                </div>
+                <div class="mt-1">
+                    DirectX®:9.0c
+                </div>
+                <div class="mt-1">
+                    Hard Drive:6 GB HD space
+                </div>
+                <div class="mt-1">
+                    Sound:Direct X- compatible soundcard
+                </div>
         </section>
     </main>
     <!--Modal Login-->
@@ -111,51 +102,7 @@
             </div>
         </div>
     </div>
-    <!--Modal Administrador-->
-    <div class="modal fade" id="modalAdmin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agregar Producto</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="formJuego" onsubmit="guardarProducto(event)">
-                        <div class="mb-3">
-                            <label class="form-label">Codigo</label>
-                            <input type="text" class="form-control" id="codigo" placeholder="Ingrese un codigo" onblur="validarCodigo(this)" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" placeholder="Counter Strike" onblur="validarNombre(this)" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Categoria</label>
-                            <input type="text" class="form-control" id="categoria" placeholder="Valve" onblur="validarCategoria(this)" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Descripcion</label>
-                            <textarea type="text" class="form-control" id="descripcion" placeholder="Informacion del producto" onblur="validarConsulta(this)"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Imagen</label>
-                            <input type="text" class="form-control" id="imagen" placeholder="Agregar una imagen" />
-                        </div>
-                        <div class="my-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                  Publicado
-                                </label>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary" type="submit">Guardar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <footer class="bg-dark py-5 mt-5">
+    <footer class="bg-dark py-5">
         <section class="container text-light">
             <div class="row">
                 <div class="col-sm-12 col-md-5 mb-4">
@@ -173,8 +120,7 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
-<script src="js/validaciones.js"></script>
-<script type="module" src="js/admin.js"></script>
+<script src="js/app.js"></script>
 </body>
 
 </html>
